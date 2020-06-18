@@ -1,0 +1,15 @@
+cabal-version: 3.0
+name: streaming-chunked
+version: 1.0.0.0
+
+library
+    exposed-modules:
+        Streaming.Chunked
+    signatures:
+        Streaming.Chunked.Chunk
+    hs-source-dirs: lib
+    build-depends:
+        base >= 4.10,
+        streaming >= 0.2
+    default-language: 
+        Haskell2010
