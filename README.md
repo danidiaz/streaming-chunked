@@ -5,7 +5,7 @@ Working with streams of packed data.
 
 Sometimes we want to work with sequences of bytes or chars without keeping them
 wholly in memory at any point. Streaming libraries like
-[streaming](http://hackage.haskell.org/package/streaming) (of course),
+[streaming](http://hackage.haskell.org/package/streaming) (of course!),
 [streamly](http://hackage.haskell.org/package/streamly),
 [conduit](http://hackage.haskell.org/package/conduit) and
 [pipes](http://hackage.haskell.org/package/pipes) help with that.
