@@ -12,7 +12,7 @@ wholly in memory at any point. Streaming libraries like
 
 However, turns out that yielding individual bytes or chars downstream is not
 very efficient. Instead, it's better to yield whole chunks of packed data,
-inside which the bytes or chars are contiguous in memory, with less
+inside which the bytes or chars sit contiguous in memory, with less
 indirection.
 
 For many functions, we might still want to refer to the *individual*
