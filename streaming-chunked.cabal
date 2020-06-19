@@ -39,3 +39,42 @@ library bytes-impl
     default-language: 
         Haskell2010
 
+library chars
+    reexported-modules:
+        Streaming.Char,
+        Streaming.Char.Chunk
+    build-depends:
+        streaming-chunked,
+        chars-impl
+    mixins:
+        streaming-chunked 
+                     (Streaming.Chunked       as Streaming.Char) 
+            requires (Streaming.Chunked.Chunk as Streaming.Char.Chunk)
+    visibility: public
+    default-language: 
+        Haskell2010
+
+library chars-impl
+    exposed-modules:
+        Streaming.Char.Chunk
+    hs-source-dirs: lib-chars-impl
+    build-depends:
+        base >= 4.10,
+        bytestring >= 0.10.10.0,
+        text >= 1.2.3.2
+    default-language: 
+        Haskell2010
+
+test-suite tests
+  type:           exitcode-stdio-1.0
+  ghc-options:    -Wall -threaded
+  hs-source-dirs: tests
+  main-is:        tests.hs
+  build-depends:
+        base >= 4.10, 
+        tasty >= 1.3.1,
+        streaming >= 0.2,
+        bytes,
+        chars 
+ default-language:    Haskell2010
+
