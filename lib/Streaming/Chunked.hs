@@ -8,12 +8,15 @@
 {-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE BangPatterns #-}
 module Streaming.Chunked (
         Stream
     ) where
 
 import Data.Kind
 import Streaming qualified as S
+import Streaming.Internal qualified as SI
+import Streaming.Prelude (Of(..))
 import Streaming.Prelude qualified as S
 import Streaming.Chunked.Chunk qualified as C
 import Control.Monad.State (MonadState(..))
@@ -52,4 +55,18 @@ instance (MonadError e m) => MonadError e (Stream m) where
   {-# INLINE throwError #-}
   catchError = coerce $ catchError @_ @(S.Stream (S.Of C.Chunk) m)
   {-# INLINABLE catchError #-}
+
+
+-- remove this if/once mapAccum is added to streaming proper
+mapAccum :: Monad m => (x -> a -> Of x b) -> x -> S.Stream (Of a) m r -> S.Stream (Of b) m (Of x r)
+mapAccum step begin str = loop begin str
+  where
+  loop !acc stream =
+    case stream of
+      SI.Return r -> SI.Return (acc :> r)
+      SI.Effect m -> SI.Effect (fmap (loop acc) m)
+      SI.Step (a :> rest) ->
+        let acc' :> b = step acc a
+        in SI.Step (b :> loop acc' rest)
+{-# INLINABLE mapAccum #-}
 
