@@ -1,15 +1,18 @@
-﻿module Streaming.Byte.Chunk where
+﻿{-# LANGUAGE ImportQualifiedPost #-}
+module Streaming.Byte.Chunk (
+        Chunk,
+        Item,
+        Builder,
+        module Data.ByteString
+    ) where
 
 import Prelude hiding (length)
 
 import Data.ByteString
-import Data.ByteString.Builder
+import Data.ByteString.Builder qualified 
 import Data.Word
 
 type Chunk = ByteString 
-
-length :: Chunk -> Int
-length = Data.ByteString.length
 
 type Item = Word8
 

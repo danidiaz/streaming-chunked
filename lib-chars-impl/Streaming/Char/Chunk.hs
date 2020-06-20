@@ -1,5 +1,10 @@
 {-# LANGUAGE ImportQualifiedPost #-}
-module Streaming.Char.Chunk where
+module Streaming.Char.Chunk (
+        Chunk,
+        Item,
+        Builder,
+        module Data.Text
+    ) where
 
 import Prelude hiding (length)
 
@@ -15,3 +20,4 @@ length = Data.Text.length
 type Item = Char
 
 type Builder = Data.Text.Lazy.Builder.Builder
+

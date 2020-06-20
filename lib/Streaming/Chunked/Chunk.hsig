@@ -5,12 +5,15 @@ import Data.Kind
 
 data Chunk :: Type
 
--- | Length of a single chunk.
---   Beware! This operation doesn't need to be O(1). For packed text representations, it often isn't.
-length :: Chunk -> Int
-
 data Item :: Type
 
 data Builder :: Type
 instance Monoid Builder
+
+
+-- | Length of a single chunk.
+--   Beware! This operation doesn't need to be O(1). For packed text representations, it often isn't.
+length :: Chunk -> Int
+
+uncons :: Chunk -> Maybe (Item, Chunk)
 
