@@ -75,4 +75,12 @@ or
 [`LeftReductiveMonoid`](http://hackage.haskell.org/package/monoid-subclasses-1.0.1/docs/Data-Monoid-Cancellative.html#t:LeftReductiveMonoid))
 to decide which operations shuld be listed in the signature of the "chunk" datatype.
 
+## Random design notes
+
+- Don't include a Builder -> Chunk function in the signature, as the text and
+  bytestring builders don't return strict chunks, but lazy ones. And including 
+  the lazy versions in the signature would overcomplicate it.
+
+- Perhaps reexport most of the ByteString and Text apis from the chunk implementations?
+  That way users wouldn't need to import the original modules in many cases.
 
